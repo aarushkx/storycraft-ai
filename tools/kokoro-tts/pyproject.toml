@@ -1,0 +1,15 @@
+[project]
+name = "kokoro-tts"
+version = "2.0.3"
+description = "A CLI text-to-speech tool using the Kokoro model, supporting multiple languages, voices (with blending), and various input formats including EPUB books and PDF documents."
+readme = "README.md"
+requires-python = ">=3.9, <3.13"
+dependencies = [
+    "beautifulsoup4>=4.12.3",
+    "ebooklib>=0.18",
+    "kokoro-onnx==0.3.9",
+    "pymupdf>=1.25.4",
+    "pymupdf4llm>=0.0.17",
+    "sounddevice>=0.5.1",
+    "soundfile>=0.13.0",
+]

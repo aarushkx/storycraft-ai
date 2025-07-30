@@ -1,0 +1,28 @@
+# Python-generated files
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+test.*
+.venv
+*.bkp
+*.wav
+*.mp3
+book_audio/
+chunks/
+voices.json
+*.npz
+*.bin
+*.onnx
+
+# macOS
+.DS_Store
+
+# book files
+*.epub
+*.txt
+*.pdf
+!requirements.txt
+!demo.*

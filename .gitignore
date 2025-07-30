@@ -1,0 +1,17 @@
+__pycache__/
+*.py[oc]
+build/
+dist/
+wheels/
+*.egg-info
+test.*
+.venv
+*.bkp
+book_audio/
+chunks/
+voices.json
+*.npz
+*.bin
+*.onnx
+
+.DS_Store

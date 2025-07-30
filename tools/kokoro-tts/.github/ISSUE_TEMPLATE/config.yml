@@ -1,0 +1,11 @@
+blank_issues_enabled: false
+contact_links:
+  - name: GitHub Discussions
+    url: https://github.com/nazdridoy/kokoro-tts/discussions
+    about: Please ask and answer questions here instead of creating an issue.
+  - name: Contribution Guidelines
+    url: https://github.com/nazdridoy/kokoro-tts/blob/main/CONTRIBUTING.md
+    about: Please review our contribution guidelines before submitting PRs.
+  - name: Project README
+    url: https://github.com/nazdridoy/kokoro-tts/blob/main/README.md
+    about: Check out the project documentation for installation and usage guides. 
