@@ -17,6 +17,12 @@ voices.json
 
 .DS_Store
 
+# Bucket media files
+/bucket/assets/*.mp3
+/bucket/assets/*.wav
+/bucket/assets/*.mp4
+/bucket/assets/*.srt
+
 # Logs
 logs
 *.log

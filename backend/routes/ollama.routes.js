@@ -1,8 +1,12 @@
 import { Router } from "express";
-import { getLlamaResponse } from "../controllers/ollama.controller.js";
+import {
+    generateStory,
+    generateImagePrompts,
+} from "../controllers/ollama.controller.js";
 
 const router = Router();
 
-router.post("/generate", getLlamaResponse);
+router.post("/generate-story", generateStory);
+router.post("/generate-image-prompts", generateImagePrompts);
 
 export default router;
