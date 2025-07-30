@@ -1,5 +1,0 @@
-soundfile
-numpy
-kokoro
-git+https://github.com/m1guelpf/auto-subtitle.git
-ffmpeg-python
