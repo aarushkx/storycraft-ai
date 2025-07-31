@@ -22,6 +22,11 @@ voices.json
 /bucket/assets/*.wav
 /bucket/assets/*.mp4
 /bucket/assets/*.srt
+/bucket/assets/*.png
+/bucket/assets/*.jpg
+/bucket/assets/*.jpeg
+/bucket/assets/*.gif
+/bucket/assets/*.webp
 
 # Logs
 logs
