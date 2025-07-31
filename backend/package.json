@@ -8,7 +8,9 @@
   "main": "index.js",
   "scripts": {
     "dev": "nodemon index.js",
+    "py": "python ./tools/api.py",
     "start": "node index.js",
+    "all": "concurrently \"nodemon index.js\" \"python ./tools/api.py\"",
     "test": "echo \"Error: no test specified\" && exit 1"
   },
   "dependencies": {
@@ -18,6 +20,7 @@
     "multer": "^2.0.2"
   },
   "devDependencies": {
+    "concurrently": "^9.2.0",
     "nodemon": "^3.1.10"
   }
 }
