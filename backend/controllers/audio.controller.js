@@ -21,6 +21,27 @@ export const generateAudio = async (req, res) => {
     }
 };
 
+export const generateSubtitle = async (req, res) => {
+    try {
+        const response = await fetch(
+            "http://localhost:8001/generate-subtitle",
+            {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ filename: "audio.wav" }),
+            }
+        );
+        if (!response.ok) throw new Error("Python API request failed");
+
+        return res
+            .status(200)
+            .json({ message: "Subtitle generated successfully" });
+    } catch (error) {
+        console.error("Failed to generate subtitle:", error);
+        return res.status(500).json({ error: "Failed to generate subtitle" });
+    }
+};
+
 export const getAudio = async (req, res) => {
     try {
         await fs.access("bucket/assets/audio.wav");
