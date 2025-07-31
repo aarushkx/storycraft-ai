@@ -7,6 +7,7 @@ import path, { dirname } from "path";
 import ollamaRoutes from "./routes/ollama.routes.js";
 import imageRoutes from "./routes/image.routes.js";
 import audioRoutes from "./routes/audio.routes.js";
+import videoRoutes from "./routes/video.routes.js";
 
 const app = express();
 
@@ -29,5 +30,6 @@ app.use(cookieParser());
 app.use("/api/v1/ollama", ollamaRoutes);
 app.use("/api/v1/image", imageRoutes);
 app.use("/api/v1/audio", audioRoutes);
+app.use("/api/v1/video", videoRoutes);
 
 export { app };
