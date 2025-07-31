@@ -27,6 +27,7 @@ voices.json
 /bucket/assets/*.jpeg
 /bucket/assets/*.gif
 /bucket/assets/*.webp
+/bucket/generated/*.mp4
 
 # Logs
 logs
