@@ -1,23 +1,33 @@
 import { exec } from "child_process";
 import fs from "fs/promises";
 
+const findImageFile = async () => {
+    const extensions = [".png", ".jpg", ".jpeg"];
+    for (const ext of extensions) {
+        const filePath = `bucket/assets/image${ext}`;
+        try {
+            await fs.access(filePath);
+            return filePath;
+        } catch {}
+    }
+    return null;
+};
+
 export const generateVideo = async (req, res) => {
-    const imagePath = "bucket/assets/image.png";
     const audioPath = "bucket/assets/audio.wav";
     const subtitlePath = "bucket/assets/audio.srt";
     const outputPath = "bucket/generated/video.mp4";
 
     try {
-        await Promise.all([
-            fs.access(imagePath),
-            fs.access(audioPath),
-            fs.access(subtitlePath),
-        ]);
+        const imagePath = await findImageFile();
+        if (!imagePath) throw new Error("No valid image file found");
+
+        await Promise.all([fs.access(audioPath), fs.access(subtitlePath)]);
 
         try {
             await fs.access(outputPath);
             await fs.unlink(outputPath);
-        } catch (error) {}
+        } catch {}
 
         const ffmpegCommand = `ffmpeg -loop 1 -i ${imagePath} -i ${audioPath} -vf "subtitles=${subtitlePath}:force_style='Alignment=5,FontSize=16'" -c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest ${outputPath}`;
 
@@ -36,7 +46,7 @@ export const generateVideo = async (req, res) => {
             });
         });
     } catch (error) {
-        console.error("File check failed or FFmpeg error:", error);
+        console.error("Error:", error);
         return res.status(500).json({ error: "Failed to generate video" });
     }
 };
