@@ -13,14 +13,17 @@ import {
     DialogTrigger,
 } from "@/components/ui/dialog";
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
-import { ArrowRight, Pen, Sparkles, Upload, X } from "lucide-react";
+import { ArrowRight, Loader2, Pen, Sparkles, Upload, X } from "lucide-react";
 import { parseFile } from "@/lib/parser";
+import { BASE_API_URL } from "@/lib/constants";
+import { toast } from "sonner";
 
 const HomePage = () => {
     const [text, setText] = useState("");
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
     const [theme, setTheme] = useState("");
+    const [isGenerating, setIsGenerating] = useState(false);
 
     const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
     const charCount = text.length;
@@ -65,9 +68,40 @@ const HomePage = () => {
         setUploadedFile(null);
     };
 
-    const handleGenerateStory = () => {
-        console.log("Generating story with theme:", theme);
-        setIsDialogOpen(false);
+    const handleGenerateStory = async () => {
+        if (!theme.trim()) return;
+
+        setIsGenerating(true);
+        try {
+            const response = await fetch(
+                `${BASE_API_URL}/ollama/generate-story`,
+                {
+                    method: "POST",
+                    headers: {
+                        "Content-Type": "application/json",
+                    },
+                    body: JSON.stringify({ theme }),
+                }
+            );
+
+            if (!response.ok) throw new Error("Failed to generate story");
+
+            const data = await response.json();
+            setText(data.story);
+            setIsDialogOpen(false);
+            setTheme("");
+        } catch (error) {
+            toast.error("Failed to generate story. Please try again.");
+        } finally {
+            setIsGenerating(false);
+        }
+    };
+
+    const handleOnKeyDown = (e: React.KeyboardEvent) => {
+        if (e.key === "Enter" && !isGenerating && theme.trim()) {
+            e.preventDefault();
+            handleGenerateStory();
+        }
     };
 
     return (
@@ -82,7 +116,7 @@ const HomePage = () => {
                     {/* Textarea Section */}
                     <div className="flex flex-col h-full space-y-2">
                         <Textarea
-                            placeholder="Write your short story here or upload a .txt file..."
+                            placeholder="Write your story here..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
                             className="h-[200px] md:h-[300px] resize-none"
@@ -155,9 +189,22 @@ const HomePage = () => {
                 <div className="flex justify-end gap-4 pt-2">
                     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger asChild>
-                            <Button variant="outline" size="sm">
-                                <Sparkles className="w-4 h-4 mr-1" />
-                                Generate with AI
+                            <Button
+                                variant="outline"
+                                size="sm"
+                                disabled={isGenerating}
+                            >
+                                {isGenerating ? (
+                                    <>
+                                        <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                                        Generating...
+                                    </>
+                                ) : (
+                                    <>
+                                        <Sparkles className="w-4 h-4 mr-1" />
+                                        Generate with AI
+                                    </>
+                                )}
                             </Button>
                         </DialogTrigger>
                         <DialogContent className="sm:max-w-md">
@@ -176,6 +223,8 @@ const HomePage = () => {
                                         onChange={(e) =>
                                             setTheme(e.target.value)
                                         }
+                                        disabled={isGenerating}
+                                        onKeyDown={handleOnKeyDown}
                                     />
                                 </div>
 
@@ -190,6 +239,7 @@ const HomePage = () => {
                                                     onClick={() =>
                                                         setTheme(exampleTheme)
                                                     }
+                                                    disabled={isGenerating}
                                                 >
                                                     {exampleTheme}
                                                 </Button>
@@ -204,7 +254,11 @@ const HomePage = () => {
                                         onClick={handleGenerateStory}
                                         disabled={!theme.trim()}
                                     >
-                                        <Pen className="w-4 h-4 mr-1" />
+                                        {isGenerating ? (
+                                            <Loader2 className="w-4 h-4 mr-1 animate-spin" />
+                                        ) : (
+                                            <Pen className="w-4 h-4 mr-1" />
+                                        )}
                                     </Button>
                                 </div>
                             </div>
