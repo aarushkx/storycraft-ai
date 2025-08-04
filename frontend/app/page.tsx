@@ -12,7 +12,7 @@ const LandingPage = () => {
                     Create Short Story Videos with Realistic AI Voices.
                 </h1>
                 <Button asChild size="lg">
-                    <Link href="/home">
+                    <Link href="/story">
                         Get Started <ArrowRight className="ml-1" />
                     </Link>
                 </Button>

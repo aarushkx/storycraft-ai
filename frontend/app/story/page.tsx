@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback } from "react";
+import { useState, useCallback, useEffect } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -17,6 +17,7 @@ import { ArrowRight, Loader2, Pen, Sparkles, Upload, X } from "lucide-react";
 import { parseFile } from "@/lib/parser";
 import { BASE_API_URL } from "@/lib/constants";
 import { toast } from "sonner";
+import Link from "next/link";
 
 const HomePage = () => {
     const [text, setText] = useState("");
@@ -34,6 +35,11 @@ const HomePage = () => {
         "Mystery story in an old mansion",
     ];
 
+    useEffect(() => {
+        if (text.trim()) localStorage.setItem("STORY", text);
+        else localStorage.removeItem("STORY");
+    }, [text]);
+
     const onDrop = useCallback(async (acceptedFiles: File[]) => {
         if (acceptedFiles.length > 0) {
             const file = acceptedFiles[0];
@@ -44,7 +50,9 @@ const HomePage = () => {
                     setText(content as string);
                     setUploadedFile(file);
                 } catch (error) {
-                    alert("Failed to read the text file. Please try again.");
+                    toast.error(
+                        "Failed to read the text file. Please try again."
+                    );
                 }
             } else return;
         }
@@ -56,11 +64,6 @@ const HomePage = () => {
         multiple: false,
         noClick: false,
     });
-
-    const handleSubmit = () => {
-        console.log("Text:", text);
-        console.log("File:", uploadedFile);
-    };
 
     const handleFileRemove = (e: React.MouseEvent) => {
         e.stopPropagation();
@@ -265,12 +268,11 @@ const HomePage = () => {
                         </DialogContent>
                     </Dialog>
 
-                    <Button
-                        size="sm"
-                        onClick={handleSubmit}
-                        disabled={!text.trim()}
-                    >
-                        Next <ArrowRight className="w-4 h-4 ml-1" />
+                    <Button asChild size="sm" disabled={!text.trim()}>
+                        <Link href="/audio">
+                            {" "}
+                            Next <ArrowRight className="w-4 h-4 ml-1" />
+                        </Link>
                     </Button>
                 </div>
             </div>
