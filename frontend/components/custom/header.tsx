@@ -15,7 +15,7 @@ const Header = () => {
             <Link href="/" className="text-2xl font-bold">
                 {APP_NAME}
             </Link>
-            {pathname !== "/" && (
+            {pathname !== "/" && pathname !== "/story" && (
                 <Button
                     variant="ghost"
                     size="sm"
