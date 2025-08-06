@@ -83,7 +83,7 @@ const VideoPage = () => {
 
     return (
         <div className="min-h-screen">
-            <h1 className="text-2xl font-semibold mt-24 px-6">
+            <h1 className="text-2xl font-bold mt-24 px-6">
                 Generate Your Video
             </h1>
 

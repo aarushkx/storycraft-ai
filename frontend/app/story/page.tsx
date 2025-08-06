@@ -1,6 +1,6 @@
 "use client";
 
-import { useState, useCallback, useEffect } from "react";
+import { useState, useCallback, useEffect, useMemo } from "react";
 import { useDropzone } from "react-dropzone";
 import { Button } from "@/components/ui/button";
 import { Textarea } from "@/components/ui/textarea";
@@ -15,7 +15,7 @@ import {
 import { VisuallyHidden } from "@radix-ui/react-visually-hidden";
 import { ArrowRight, Loader2, Pen, Sparkles, Upload, X } from "lucide-react";
 import { parseFile } from "@/lib/parser";
-import { BASE_API_URL } from "@/lib/constants";
+import { BASE_API_URL, EXAMPLE_THEMES } from "@/lib/constants";
 import { toast } from "sonner";
 import Link from "next/link";
 
@@ -29,11 +29,10 @@ const StoryPage = () => {
     const wordCount = text.trim() === "" ? 0 : text.trim().split(/\s+/).length;
     const charCount = text.length;
 
-    const exampleThemes = [
-        "Children's story with animals as characters",
-        "Horror story with an unexpected twist",
-        "Mystery story in an old mansion",
-    ];
+    const exampleThemes = useMemo(() => {
+        const shuffled = [...EXAMPLE_THEMES].sort(() => 0.5 - Math.random());
+        return shuffled.slice(0, 3);
+    }, []);
 
     useEffect(() => {
         if (text.trim()) localStorage.setItem("STORY", text);
@@ -110,7 +109,7 @@ const StoryPage = () => {
     return (
         <>
             {/* Heading */}
-            <h1 className="text-2xl font-semibold mt-24 px-6">
+            <h1 className="text-2xl font-bold mt-24 px-6">
                 Share Your Story
             </h1>
 
@@ -211,7 +210,7 @@ const StoryPage = () => {
                                 )}
                             </Button>
                         </DialogTrigger>
-                        <DialogContent className="sm:max-w-md">
+                        <DialogContent className="sm:max-w-md max-w-[90vw]">
                             <DialogHeader>
                                 <DialogTitle className="py-0.5">
                                     <VisuallyHidden>
@@ -222,7 +221,7 @@ const StoryPage = () => {
                             <div className="space-y-4">
                                 <div className="space-y-2">
                                     <Input
-                                        placeholder="Enter your story theme..."
+                                        placeholder="Describe your story theme..."
                                         value={theme}
                                         onChange={(e) =>
                                             setTheme(e.target.value)
@@ -233,19 +232,21 @@ const StoryPage = () => {
                                 </div>
 
                                 <div className="space-y-2">
-                                    <div className="grid gap-2">
+                                    <div className="grid gap-2 max-h-48 overflow-y-auto">
                                         {exampleThemes.map(
                                             (exampleTheme, index) => (
                                                 <Button
                                                     key={index}
                                                     variant="ghost"
-                                                    className="justify-start h-auto p-2 text-left text-sm cursor-pointer"
+                                                    className="justify-start h-auto p-3 text-left text-sm cursor-pointer whitespace-normal break-words"
                                                     onClick={() =>
                                                         setTheme(exampleTheme)
                                                     }
                                                     disabled={isGenerating}
                                                 >
-                                                    {exampleTheme}
+                                                    <span className="line-clamp-2">
+                                                        {exampleTheme}
+                                                    </span>
                                                 </Button>
                                             )
                                         )}

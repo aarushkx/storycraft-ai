@@ -172,7 +172,7 @@ const AudioPage = () => {
 
     return (
         <>
-            <h1 className="text-2xl font-semibold mt-24 px-6">
+            <h1 className="text-2xl font-bold mt-24 px-6">
                 Choose Your Voice
             </h1>
 
