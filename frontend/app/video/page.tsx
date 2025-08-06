@@ -134,6 +134,7 @@ const VideoPage = () => {
                 {/* Buttons Section */}
                 <div className="flex justify-center gap-4 pt-2">
                     <Button
+                        variant="outline"
                         size="sm"
                         onClick={handleGenerateVideo}
                         disabled={isGenerating || !!videoUrl}

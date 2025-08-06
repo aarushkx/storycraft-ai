@@ -5,6 +5,7 @@ import { useRouter, usePathname } from "next/navigation";
 import { Button } from "@/components/ui/button";
 import { ChevronLeft } from "lucide-react";
 import { APP_NAME } from "@/lib/constants";
+import ThemeToggle from "./theme-toggle";
 
 const Header = () => {
     const pathname = usePathname();
@@ -15,17 +16,21 @@ const Header = () => {
             <Link href="/" className="text-2xl font-bold">
                 {APP_NAME}
             </Link>
-            {pathname !== "/" && pathname !== "/story" && (
-                <Button
-                    variant="ghost"
-                    size="sm"
-                    onClick={() => router.back()}
-                    className="flex items-center gap-1"
-                >
-                    <ChevronLeft className="h-4 w-4" />
-                    Back
-                </Button>
-            )}
+
+            <div className="flex items-center gap-2">
+                {pathname !== "/" && pathname !== "/story" && (
+                    <Button
+                        variant="ghost"
+                        size="sm"
+                        onClick={() => router.back()}
+                        className="flex items-center gap-1"
+                    >
+                        <ChevronLeft className="h-4 w-4" />
+                        Back
+                    </Button>
+                )}
+                <ThemeToggle />
+            </div>
         </header>
     );
 };
