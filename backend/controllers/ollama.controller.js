@@ -42,8 +42,8 @@ export const generateImagePrompts = async (req, res) => {
         const numberedPattern = /\d\./g;
         const matches = [...response.matchAll(numberedPattern)];
 
-        if (matches.length < 3)
-            throw new Error("Failed to extract exactly 3 numbered prompts");
+        if (matches.length < 4)
+            throw new Error("Failed to extract exactly 4 numbered prompts");
 
         for (let i = 0; i < matches.length; i++) {
             const start = matches[i].index + matches[i][0].length;
@@ -54,11 +54,11 @@ export const generateImagePrompts = async (req, res) => {
             chunk = chunk.replace(/[\n\r]+/g, " ").trim();
 
             if (chunk.length > 0) prompts.push(chunk);
-            if (prompts.length === 3) break;
+            if (prompts.length === 4) break;
         }
 
-        if (prompts.length !== 3)
-            throw new Error("Failed to extract exactly 3 valid prompts");
+        if (prompts.length !== 4)
+            throw new Error("Failed to extract exactly 4 valid prompts");
 
         return res.json({ imagePrompts: prompts });
     } catch (error) {

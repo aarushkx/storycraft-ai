@@ -24,7 +24,7 @@ const BackgroundPage = () => {
     const [isSubmitting, setIsSubmitting] = useState(false);
     const [submissionSuccess, setSubmissionSuccess] = useState(false);
 
-    const placeholders = Array(3).fill(null);
+    const placeholders = Array(4).fill(null);
 
     useEffect(() => {
         setStory(localStorage.getItem("STORY") || "");

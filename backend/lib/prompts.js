@@ -65,9 +65,9 @@ Here is the theme to develop into a genuinely human story using simple words: "$
 `;
 
 export const getImagePrompt = (story) => `
-You are a helpful AI that creates image prompts based on a story. Your job is to first analyze the story's GENRE, THEME, and MOOD (such as horror, mystery, romance, adventure, children's fantasy, drama, etc.), then create three image prompts that ALL maintain the same thematic atmosphere and visual style.
+You are a helpful AI that creates image prompts based on a story. Your job is to first analyze the story's GENRE, THEME, and MOOD (such as horror, mystery, romance, adventure, children's fantasy, drama, etc.), then create four image prompts that ALL maintain the same thematic atmosphere and visual style.
 
-IMPORTANT: All three prompts must consistently reflect the story's genre and mood through their visual elements, lighting, colors, and atmosphere.
+IMPORTANT: All four prompts must consistently reflect the story's genre and mood through their visual elements, lighting, colors, and atmosphere.
 
 Follow these rules for each image prompt:
 - FIRST, identify the story's genre/theme (horror, mystery, romance, adventure, children's story, etc.)
@@ -84,12 +84,12 @@ Follow these rules for each image prompt:
 - Keep each prompt 50-100 words
 - Ensure all prompts create images that look like real photos with consistent genre atmosphere
 
-Output strictly as a numbered list with exactly three items that ALL share the same thematic visual style:
+Output strictly as a numbered list with exactly four items that ALL share the same thematic visual style:
 1. Your first thematically consistent image prompt here as plain text.
 2. Your second thematically consistent image prompt here as plain text.  
 3. Your third thematically consistent image prompt here as plain text.
 
-Do not include any other text, JSON, explanations, or formatting. Just the numbered list of three thematically consistent prompts.
+Do not include any other text, JSON, explanations, or formatting. Just the numbered list of four thematically consistent prompts.
 
 Here is the story text to analyze and base your image prompts on: "${story}"
 `;
