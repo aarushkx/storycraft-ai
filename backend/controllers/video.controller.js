@@ -29,7 +29,7 @@ export const generateVideo = async (req, res) => {
             await fs.unlink(outputPath);
         } catch {}
 
-        const ffmpegCommand = `ffmpeg -loop 1 -i ${imagePath} -i ${audioPath} -vf "subtitles=${subtitlePath}:force_style='Alignment=5,FontSize=16'" -c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest ${outputPath}`;
+        const ffmpegCommand = `ffmpeg -loop 1 -i ${imagePath} -i ${audioPath} -vf "boxblur=10,subtitles=${subtitlePath}:force_style='Alignment=10,FontSize=16,Fontname=Helvetica,PrimaryColour=&H00FFFFFF,OutlineColour=&H80000000,BackColour=&H40000000,BorderStyle=1,Outline=1,Bold=1,MarginL=25,MarginR=25'" -c:v libx264 -profile:v main -level 3.1 -pix_fmt yuv420p -c:a aac -b:a 192k -shortest ${outputPath}`;
 
         exec(ffmpegCommand, (error, stdout, stderr) => {
             if (error) {

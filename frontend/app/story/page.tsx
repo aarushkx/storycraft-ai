@@ -268,12 +268,17 @@ const HomePage = () => {
                         </DialogContent>
                     </Dialog>
 
-                    <Button asChild size="sm" disabled={!text.trim()}>
-                        <Link href="/audio">
-                            {" "}
+                    {!text.trim() ? (
+                        <Button size="sm" disabled>
                             Next <ArrowRight className="w-4 h-4 ml-1" />
-                        </Link>
-                    </Button>
+                        </Button>
+                    ) : (
+                        <Button asChild size="sm">
+                            <Link href="/audio">
+                                Next <ArrowRight className="w-4 h-4 ml-1" />
+                            </Link>
+                        </Button>
+                    )}
                 </div>
             </div>
         </>

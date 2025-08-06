@@ -38,8 +38,6 @@ export const generateImagePrompts = async (req, res) => {
         const IMAGE_PROMPT = getImagePrompt(story);
         let response = await generateWithOllama(IMAGE_PROMPT);
 
-        console.log("Image prompts response:", response);
-
         const prompts = [];
         const numberedPattern = /\d\./g;
         const matches = [...response.matchAll(numberedPattern)];

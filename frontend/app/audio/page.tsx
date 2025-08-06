@@ -170,10 +170,6 @@ const AudioPage = () => {
         }
     };
 
-    const handleSubmit = () => {
-        console.log("Generated audio URL:", generatedAudioUrl);
-    };
-
     return (
         <>
             <h1 className="text-2xl font-semibold mt-24 px-6">
@@ -247,11 +243,17 @@ const AudioPage = () => {
                         {isGenerating ? "Generating..." : "Generate Audio"}
                     </Button>
 
-                    <Button asChild size="sm" disabled={!generatedAudioUrl}>
-                        <Link href="/background">
+                    {generatedAudioUrl ? (
+                        <Button asChild size="sm">
+                            <Link href="/background">
+                                Next <ArrowRight className="w-4 h-4 ml-1" />
+                            </Link>
+                        </Button>
+                    ) : (
+                        <Button size="sm" disabled>
                             Next <ArrowRight className="w-4 h-4 ml-1" />
-                        </Link>
-                    </Button>
+                        </Button>
+                    )}
                 </div>
             </div>
         </>

@@ -1,6 +1,7 @@
 "use client";
 
 import { useState, useEffect } from "react";
+import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
 import { Loader2, ArrowRight, Sparkles, Image } from "lucide-react";
@@ -66,7 +67,7 @@ const BackgroundPage = () => {
                 imagePrompts.map(async (prompt, index) => {
                     const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(
                         prompt
-                    )}?nologo=true`;
+                    )}?width=1920&height=1080&nologo=true`;
 
                     const response = await fetch(url);
                     if (!response.ok)
@@ -151,7 +152,7 @@ const BackgroundPage = () => {
                     </Button>
                 </div>
 
-                <div className="grid grid-cols-1 md:grid-cols-3 gap-4 md:gap-6">
+                <div className="grid grid-cols-1 md:grid-cols-2 gap-4 md:gap-6">
                     {generatedImages.length > 0 && !isGenerating
                         ? generatedImages.map(({ url }, index) => (
                               <Card
@@ -161,7 +162,7 @@ const BackgroundPage = () => {
                                   }`}
                                   onClick={() => handleImageClick(url)}
                               >
-                                  <div className="w-full aspect-square rounded-lg overflow-hidden bg-muted/20">
+                                  <div className="w-full aspect-video rounded-lg overflow-hidden bg-muted/20">
                                       <img
                                           src={url}
                                           alt={`Generated image ${index + 1}`}
@@ -181,7 +182,7 @@ const BackgroundPage = () => {
                                   }`}
                               >
                                   <div
-                                      className={`w-full aspect-square rounded-lg flex items-center justify-center ${
+                                      className={`w-full aspect-video rounded-lg flex items-center justify-center ${
                                           isGenerating
                                               ? "bg-muted animate-pulse"
                                               : "bg-muted/50"
@@ -230,9 +231,17 @@ const BackgroundPage = () => {
                         {isSubmitting ? "Submitting..." : "Submit Image"}
                     </Button>
 
-                    <Button size="sm" disabled={!submissionSuccess}>
-                        Next <ArrowRight className="w-4 h-4 ml-1" />
-                    </Button>
+                    {submissionSuccess ? (
+                        <Button asChild size="sm">
+                            <Link href="/video">
+                                Next <ArrowRight className="w-4 h-4 ml-1" />
+                            </Link>
+                        </Button>
+                    ) : (
+                        <Button size="sm" disabled>
+                            Next <ArrowRight className="w-4 h-4 ml-1" />
+                        </Button>
+                    )}
                 </div>
             </div>
         </div>
