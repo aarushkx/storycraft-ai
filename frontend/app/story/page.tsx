@@ -19,7 +19,7 @@ import { BASE_API_URL } from "@/lib/constants";
 import { toast } from "sonner";
 import Link from "next/link";
 
-const HomePage = () => {
+const StoryPage = () => {
     const [text, setText] = useState("");
     const [uploadedFile, setUploadedFile] = useState<File | null>(null);
     const [isDialogOpen, setIsDialogOpen] = useState(false);
@@ -151,7 +151,7 @@ const HomePage = () => {
                                             variant="ghost"
                                             size="sm"
                                             onClick={handleFileRemove}
-                                            className="h-6 w-6 p-0"
+                                            className="h-6 w-6 p-0 cursor-pointer"
                                         >
                                             <X className="h-4 w-4" />
                                         </Button>
@@ -195,6 +195,7 @@ const HomePage = () => {
                             <Button
                                 variant="outline"
                                 size="sm"
+                                className="cursor-pointer"
                                 disabled={isGenerating}
                             >
                                 {isGenerating ? (
@@ -238,7 +239,7 @@ const HomePage = () => {
                                                 <Button
                                                     key={index}
                                                     variant="ghost"
-                                                    className="justify-start h-auto p-2 text-left text-sm"
+                                                    className="justify-start h-auto p-2 text-left text-sm cursor-pointer"
                                                     onClick={() =>
                                                         setTheme(exampleTheme)
                                                     }
@@ -255,6 +256,7 @@ const HomePage = () => {
                                     <Button
                                         size="sm"
                                         onClick={handleGenerateStory}
+                                        className="cursor-pointer"
                                         disabled={!theme.trim()}
                                     >
                                         {isGenerating ? (
@@ -285,4 +287,4 @@ const HomePage = () => {
     );
 };
 
-export default HomePage;
+export default StoryPage;

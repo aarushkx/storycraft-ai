@@ -137,6 +137,7 @@ const VideoPage = () => {
                         variant="outline"
                         size="sm"
                         onClick={handleGenerateVideo}
+                        className="cursor-pointer"
                         disabled={isGenerating || !!videoUrl}
                     >
                         {isGenerating ? (
@@ -150,6 +151,7 @@ const VideoPage = () => {
                     <Button
                         size="sm"
                         onClick={handleDownload}
+                        className="cursor-pointer"
                         disabled={!videoUrl || isDownloading}
                     >
                         {isDownloading ? (

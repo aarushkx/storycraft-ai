@@ -70,7 +70,7 @@ const AudioCard = ({
                                 e.stopPropagation();
                                 onPlayDemoVoice(v);
                             }}
-                            className="h-6 w-6 bg-transparent hover:bg-transparent"
+                            className="h-6 w-6 cursor-pointer bg-transparent hover:bg-transparent"
                         >
                             {playingDemo === v ? (
                                 <Pause className="h-3 w-3 text-muted-foreground" />
@@ -231,6 +231,7 @@ const AudioPage = () => {
                         variant="outline"
                         size="sm"
                         onClick={generateAudio}
+                        className="cursor-pointer"
                         disabled={
                             !selectedVoice || !story.trim() || isGenerating
                         }

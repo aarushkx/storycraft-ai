@@ -139,6 +139,7 @@ const BackgroundPage = () => {
                         variant="outline"
                         size="sm"
                         onClick={generateImagePrompts}
+                        className="cursor-pointer"
                         disabled={isGenerating || !story.trim()}
                     >
                         {isGenerating ? (
@@ -221,6 +222,7 @@ const BackgroundPage = () => {
                         variant="outline"
                         size="sm"
                         onClick={handleSubmit}
+                        className="cursor-pointer"
                         disabled={!selectedImage || isSubmitting}
                     >
                         {isSubmitting ? (

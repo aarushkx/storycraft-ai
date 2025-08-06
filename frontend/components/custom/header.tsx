@@ -23,7 +23,7 @@ const Header = () => {
                         variant="ghost"
                         size="sm"
                         onClick={() => router.back()}
-                        className="flex items-center gap-1"
+                        className="flex items-center gap-1 cursor-pointer"
                     >
                         <ChevronLeft className="h-4 w-4" />
                         Back
