@@ -170,7 +170,7 @@ const BackgroundPage = () => {
                                           className="w-full h-full object-cover"
                                       />
                                   </div>
-                                  <p className="text-center text-sm text-muted-foreground mt-2">
+                                  <p className="text-center text-sm text-muted-foreground">
                                       {imagePrompts[index]}
                                   </p>
                               </Card>
@@ -201,7 +201,7 @@ const BackgroundPage = () => {
                                       )}
                                   </div>
                                   <div
-                                      className={`text-center mt-2 ${
+                                      className={`text-center ${
                                           isGenerating ? "animate-pulse" : ""
                                       }`}
                                   >

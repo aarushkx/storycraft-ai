@@ -109,11 +109,9 @@ const StoryPage = () => {
     return (
         <>
             {/* Heading */}
-            <h1 className="text-2xl font-bold mt-24 px-6">
-                Share Your Story
-            </h1>
+            <h1 className="text-2xl font-bold mt-24 px-6">Share Your Story</h1>
 
-            <div className="px-6 py-2 space-y-4 md:space-y-8">
+            <div className="px-6 py-2 space-y-6 md:space-y-8 min-h-[calc(100vh-8rem)] md:min-h-0 pb-20 md:pb-8">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-4 md:gap-8 items-start mt-2">
                     {/* Textarea Section */}
                     <div className="flex flex-col h-full space-y-2">
@@ -121,7 +119,7 @@ const StoryPage = () => {
                             placeholder="Write your story here..."
                             value={text}
                             onChange={(e) => setText(e.target.value)}
-                            className="h-[200px] md:h-[300px] resize-none"
+                            className="h-[250px] md:h-[300px] resize-none"
                         />
                         <div className="flex gap-4 text-sm text-muted-foreground">
                             <span>{charCount} characters</span>
@@ -133,7 +131,7 @@ const StoryPage = () => {
                     <div className="flex flex-col h-full space-y-2">
                         <div
                             {...getRootProps()}
-                            className={`border-2 border-dashed rounded-lg p-4 md:p-8 text-center min-h-[200px] md:min-h-[300px] flex flex-col items-center justify-center transition-colors cursor-pointer ${
+                            className={`border-2 border-dashed rounded-lg p-4 md:p-8 text-center min-h-[250px] md:min-h-[300px] flex flex-col items-center justify-center transition-colors cursor-pointer ${
                                 isDragActive
                                     ? "border-primary bg-primary/5"
                                     : "border-muted-foreground/25 hover:border-muted-foreground/50"
@@ -188,7 +186,7 @@ const StoryPage = () => {
                 </div>
 
                 {/* Submit Button */}
-                <div className="flex justify-end gap-4 pt-2">
+                <div className="flex justify-end gap-4 pt-6 md:pt-2">
                     <Dialog open={isDialogOpen} onOpenChange={setIsDialogOpen}>
                         <DialogTrigger asChild>
                             <Button
