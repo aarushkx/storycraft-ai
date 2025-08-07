@@ -4,7 +4,12 @@ import { useState, useEffect } from "react";
 import Link from "next/link";
 import { Button } from "@/components/ui/button";
 import { Card } from "@/components/ui/card";
-import { Loader2, ArrowRight, Sparkles, Image } from "lucide-react";
+import {
+    Loader2,
+    ArrowRight,
+    Sparkles,
+    Image as ImageIcon,
+} from "lucide-react";
 import { toast } from "sonner";
 import { BASE_API_URL } from "@/lib/constants";
 
@@ -58,41 +63,43 @@ const BackgroundPage = () => {
         }
     };
 
-    const generateImages = async () => {
-        if (imagePrompts.length === 0) return;
-
-        setIsGenerating(true);
-        try {
-            const images = await Promise.all(
-                imagePrompts.map(async (prompt, index) => {
-                    const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(
-                        prompt
-                    )}?width=1920&height=1080&nologo=true`;
-
-                    const response = await fetch(url);
-                    if (!response.ok)
-                        throw new Error(
-                            "Failed to fetch image from pollinations.ai"
-                        );
-
-                    const blob = await response.blob();
-                    const name = `image_${index + 1}.jpg`;
-
-                    const file = new File([blob], name, { type: blob.type });
-                    const objectUrl = URL.createObjectURL(file);
-
-                    return { url: objectUrl, file };
-                })
-            );
-            setGeneratedImages(images);
-        } catch (error) {
-            toast.error("Failed to generate images. Please try again.");
-        } finally {
-            setIsGenerating(false);
-        }
-    };
-
     useEffect(() => {
+        const generateImages = async () => {
+            if (imagePrompts.length === 0) return;
+
+            setIsGenerating(true);
+            try {
+                const images = await Promise.all(
+                    imagePrompts.map(async (prompt, index) => {
+                        const url = `https://image.pollinations.ai/prompt/${encodeURIComponent(
+                            prompt
+                        )}?width=1920&height=1080&nologo=true`;
+
+                        const response = await fetch(url);
+                        if (!response.ok)
+                            throw new Error(
+                                "Failed to fetch image from pollinations.ai"
+                            );
+
+                        const blob = await response.blob();
+                        const name = `image_${index + 1}.jpg`;
+
+                        const file = new File([blob], name, {
+                            type: blob.type,
+                        });
+                        const objectUrl = URL.createObjectURL(file);
+
+                        return { url: objectUrl, file };
+                    })
+                );
+                setGeneratedImages(images);
+            } catch (error) {
+                toast.error("Failed to generate images. Please try again.");
+            } finally {
+                setIsGenerating(false);
+            }
+        };
+
         if (imagePrompts.length > 0) generateImages();
     }, [imagePrompts]);
 
@@ -228,7 +235,7 @@ const BackgroundPage = () => {
                         {isSubmitting ? (
                             <Loader2 className="w-4 h-4 mr-1 animate-spin" />
                         ) : (
-                            <Image className="w-4 h-4 mr-1" />
+                            <ImageIcon className="w-4 h-4 mr-1" />
                         )}
                         {isSubmitting ? "Submitting..." : "Submit Image"}
                     </Button>
