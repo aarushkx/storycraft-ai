@@ -91,10 +91,10 @@ const VideoPage = () => {
                 <div className="grid grid-cols-1 gap-4 md:gap-6 max-w-2xl mx-auto">
                     {hasGeneratedVideo && videoUrl && !isGenerating ? (
                         <>
-                            <div className="w-full aspect-video rounded-lg overflow-hidden bg-black">
+                            <div className="w-full aspect-video rounded-lg overflow-hidden bg-black border-0">
                                 <video
                                     controls
-                                    className="w-full h-full"
+                                    className="w-full h-full object-cover border-0 outline-0"
                                     preload="metadata"
                                 >
                                     <source src={videoUrl} type="video/mp4" />
