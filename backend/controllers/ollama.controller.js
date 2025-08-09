@@ -11,9 +11,8 @@ export const generateStory = async (req, res) => {
 
         try {
             const parsed = JSON.parse(story);
-            if (parsed && typeof parsed === "object" && parsed.story) {
+            if (parsed && typeof parsed === "object" && parsed.story)
                 story = parsed.story;
-            }
         } catch (e) {}
 
         story = story
@@ -38,33 +37,36 @@ export const generateImagePrompts = async (req, res) => {
         const IMAGE_PROMPT = getImagePrompt(story);
         let response = await generateWithOllama(IMAGE_PROMPT);
 
-        const prompts = [];
-        const numberedPattern = /\d\./g;
-        const matches = [...response.matchAll(numberedPattern)];
+        const startIndex = response.indexOf("{");
+        const lastIndex = response.lastIndexOf("}");
 
-        if (matches.length < 4)
-            throw new Error("Failed to extract exactly 4 numbered prompts");
+        if (startIndex === -1 || lastIndex === -1 || startIndex >= lastIndex)
+            throw new Error("No valid JSON found in response");
 
-        for (let i = 0; i < matches.length; i++) {
-            const start = matches[i].index + matches[i][0].length;
-            const end =
-                i + 1 < matches.length ? matches[i + 1].index : response.length;
+        const jsonString = response.substring(startIndex, lastIndex + 1);
 
-            let chunk = response.slice(start, end).trim();
-            chunk = chunk.replace(/[\n\r]+/g, " ").trim();
+        let prompts;
+        try {
+            prompts = JSON.parse(jsonString);
 
-            if (chunk.length > 0) prompts.push(chunk);
-            if (prompts.length === 4) break;
+            if (
+                !prompts ||
+                !prompts.imagePrompts ||
+                !Array.isArray(prompts.imagePrompts)
+            )
+                throw new Error("Invalid response structure");
+        } catch (parseError) {
+            console.error("JSON parse error:", parseError);
+            return res
+                .status(500)
+                .json({ error: "Invalid response format from AI" });
         }
 
-        if (prompts.length !== 4)
-            throw new Error("Failed to extract exactly 4 valid prompts");
-
-        return res.json({ imagePrompts: prompts });
+        return res.json(prompts);
     } catch (error) {
-        console.error("Failed to generate image prompts:", error);
+        console.error("Llama failed to generate image prompts:", error);
         return res
             .status(500)
-            .json({ error: "Llama failed to generate image prompts" });
+            .json({ error: "Failed to generate image prompts" });
     }
 };

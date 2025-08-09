@@ -20,7 +20,7 @@ This creative tool makes video storytelling accessible to everyone:
 
 -   **Audio Generation**: [Kokoro TTS](https://github.com/nazdridoy/kokoro-tts)
 -   **Subtitle Generation**: [Auto-Subtitle](https://github.com/m1guelpf/auto-subtitle)
--   **Story Generation**: [Ollama with Llama2](https://ollama.com/library/llama2:7b)
+-   **Story Generation**: [Ollama with Llama 3.1](https://ollama.com/library/llama3.1:8b)
 
 ## Getting Started
 
@@ -30,7 +30,7 @@ Make sure you have these installed:
 
 -   Node.js (v18 or higher)
 -   Python (3.8+)
--   Ollama with Llama2 model
+-   Ollama with Llama 3.1 model
 -   FFmpeg (for video processing)
 
 ### Installation
@@ -64,11 +64,11 @@ cd backend
 npm install
 ```
 
-4. Install Ollama with Llama2
+4. Install Ollama with Llama 3.1
 
 ```bash
-# Make sure Ollama is installed with the Llama2 model
-ollama pull llama2
+# Make sure Ollama is installed with the Llama 3.1 model
+ollama pull llama3.1:8b
 ```
 
 5. Install frontend dependencies

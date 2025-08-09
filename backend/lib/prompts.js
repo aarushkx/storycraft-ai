@@ -71,7 +71,7 @@ IMPORTANT: All four prompts must consistently reflect the story's genre and mood
 
 Follow these rules for each image prompt:
 - FIRST, identify the story's genre/theme (horror, mystery, romance, adventure, children's story, etc.)
-- ALL THREE prompts must maintain the same thematic visual elements:
+- ALL FOUR prompts must maintain the same thematic visual elements:
   * For horror/dark stories: Use dark lighting, shadows, eerie atmospheres, muted colors
   * For children's stories: Use bright, warm lighting, cheerful colors, safe environments
   * For romance: Use soft lighting, warm tones, intimate settings
@@ -79,17 +79,15 @@ Follow these rules for each image prompt:
   * For adventure: Use dynamic lighting, vast landscapes, action-oriented scenes
 - Make each prompt describe a realistic scene with consistent thematic visual style
 - Use clear, descriptive language focusing on lighting, mood, colors, and atmosphere
-- Do not add any text, words, signs, or writing in the image
-- Do not use names of people, places, brands, or specific proper nouns
-- Keep each prompt 50-100 words
+- DO NOT add any text, words, signs, or writing in the image
+- DO NOT use names of people, places, brands, or specific proper nouns
+- Keep each prompt 30-60 words
 - Ensure all prompts create images that look like real photos with consistent genre atmosphere
 
-Output strictly as a numbered list with exactly four items that ALL share the same thematic visual style:
-1. Your first thematically consistent image prompt here as plain text.
-2. Your second thematically consistent image prompt here as plain text.  
-3. Your third thematically consistent image prompt here as plain text.
+Output strictly as JSON of array with exactly four elements that ALL share the same thematic visual style:
+{imagePrompts:["Your first thematically consistent image prompt here as plain text.", "Your second thematically consistent image prompt here as plain text.", "Your third thematically consistent image prompt here as plain text.", "Your fourth thematically consistent image prompt here as plain text."]}
 
-Do not include any other text, JSON, explanations, or formatting. Just the numbered list of four thematically consistent prompts.
+Do not include any other text, explanations, or formatting. Just the JSON response of the four thematically consistent prompts.
 
 Here is the story text to analyze and base your image prompts on: "${story}"
 `;
